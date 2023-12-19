@@ -1,38 +1,121 @@
-.App {
+body{
+  background-color: rgba(228, 227, 235, 1);
+}
+h2{
   text-align: center;
+  color: #5f5f5f;
+  margin-top: 150px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/***********navbar************/
+.navbar_div{
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: row;
+
+  width: 100%;
+  height: 80px;
+  background-color: white;
+}
+.logo{
+  width: 150px;
+  height: 24px;
+
+  margin-top: 28px;
+  margin-left: 76px;
+  margin-right: auto;
+}
+.common_button{
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  width: 93px;
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 50px;
+  
+  border: 2px solid rgba(93, 55, 243, 1);
+  border-radius: 8px;
+  background-color: rgba(93, 55, 243, 1);
   color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.common_button:hover{
+  background-color:white;
+  color: rgba(93, 55, 243, 1);
+  transition: 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+/***********************Home page ***************/
+.header_div{
+  display: flex;
+  flex-direction: row;
+  margin-top: 140px;
+}
+.home_header_img{
+  width: 624px;
+  height: 200px;
+  margin-right: 50px;
+}
+.home_header{
+  font-size: 64px;
+  line-height: 72px;
+  font-family: 700;
+
+  width: 225px;
+  height: 72px;
+  margin-right: auto;
+  margin-left: 89px;
+}
+/*categories*/
+.categories_container{
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+
+  width: 60%;
+  height: 60px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 10px;
+}
+.categories_container::-webkit-scrollbar {
+  height: 5px; 
+}
+.categories_container::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 5px;
+}
+.categories_container::-webkit-scrollbar-track {
+  background-color: #ddd;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.each_category{
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  margin-top: 5px;
+  margin-left: 15px;
+  gap: 10px;
+
+  border: 1px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.each_category:hover{
+  opacity: 0.7;
+  transition: 0.3s;
 }
