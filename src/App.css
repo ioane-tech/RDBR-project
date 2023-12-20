@@ -1,3 +1,6 @@
+*{
+  font-family: FiraGo;
+}
 body{
   background-color: rgba(228, 227, 235, 1);
 }
@@ -6,7 +9,7 @@ h2{
   color: #5f5f5f;
   margin-top: 150px;
 }
-/***********navbar************/
+/*************************navbar**************************/
 .navbar_div{
   position: fixed;
   top: 0;
@@ -30,10 +33,10 @@ h2{
   font-weight: bold;
   letter-spacing: 1px;
 
-  width: 93px;
   height: 40px;
   margin-top: 20px;
   margin-right: 50px;
+  padding: 0px 15px 0px 15px;
   
   border: 2px solid rgba(93, 55, 243, 1);
   border-radius: 8px;
@@ -50,7 +53,7 @@ h2{
 
 
 
-/***********************Home page ***************/
+/******************************Home page************************/
 .header_div{
   display: flex;
   flex-direction: row;
@@ -64,14 +67,14 @@ h2{
 .home_header{
   font-size: 64px;
   line-height: 72px;
-  font-family: 700;
+  font-weight: 700;
 
   width: 225px;
   height: 72px;
   margin-right: auto;
   margin-left: 89px;
 }
-/*categories*/
+/*******categories******/
 .categories_container{
   display: flex;
   flex-direction: row;
@@ -119,3 +122,140 @@ h2{
   opacity: 0.7;
   transition: 0.3s;
 }
+/****categories*****/
+
+/******login******/
+.login_background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color :black;
+  opacity: 24%;
+}
+.login_popup{
+  position: absolute;
+  top: 314px ;
+  left: 710px;
+  width: 480px;
+
+
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 1);
+}
+.Login_header{
+  font-size: 24px;
+  text-align: center;
+  line-height: 32px;
+  font-weight: 700;
+
+  width: 91px;
+  height: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
+}
+.close_button{
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+  margin-right: 20px ;
+  color: black;
+  cursor: pointer;
+}
+.close_button:hover{
+  color: red;
+}
+
+/*login form*/
+.login_label{
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 14px;
+  width: 76px;
+  height: 20px;
+
+  margin-left: 20px;
+}
+.login_input{
+  width: 432px;
+  height: 44px;
+
+  margin-left: 20px;
+  margin-top: 5px;
+
+  border: 2px solid rgba(93, 55, 243, 1);
+  border-radius: 12px;
+  background-color: rgba(247, 247, 255, 1);
+}
+.login_input:focus{
+  outline: none;
+  border: 2px solid rgb(161, 137, 255);
+  background-color: rgb(242, 239, 255);
+}
+.login_submit{
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+
+  width: 432px;
+  height: 40px; 
+  padding: 10px 20px 10px 20px;
+  margin-left: 27px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  border: 2px solid rgba(93, 55, 243, 1);
+  border-radius: 8px;
+  background-color: rgba(93, 55, 243, 1);
+  color: rgba(255, 255, 255, 1) ;
+  gap: 10px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login_submit:hover{
+  color: rgba(93, 55, 243, 1);
+  background-color: white;
+  transition: 0.3s;
+}
+.login_error{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+
+  width: 343px;
+  height: 20px;
+  color: rgba(234, 25, 25, 1);
+}
+.error_icon{
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  margin-right: 5px;
+
+  color: red;
+  transform: rotate(-180deg);
+}
+/*login form*/
+.succsess_img{
+  width: 53px;
+  height: 53px;
+  margin-left: 220px;
+}
+.authorized_text{
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+
+  width: 284px;
+  height: 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/******login******/
