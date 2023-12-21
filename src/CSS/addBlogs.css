@@ -1,0 +1,212 @@
+*{
+    font-family: FiraGo,sans-serif;
+  }
+/**************************add blogs**********************/
+.back_icon{
+    position: absolute;
+    top: 120px;
+    left: 76px;
+    width: 44px;
+    height: 44px; 
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .back_icon:hover{
+    width: 49px;
+    height: 49px;
+    left: 65px;
+    top: 117px;
+    transition: 0.3s;
+  }
+  
+/******add blogs form*******/
+  .add_blog_container{
+    width: 600px;
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 150px;
+    gap: 40px;
+
+  }
+  .add_blogs_header{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: left;
+  
+    width: 295px;
+    height: 40px;
+  }
+  /*upload photo*/
+  .add_blogs_label{
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  
+    width: 300px;
+    height: 22px;
+    margin-top:28px; 
+    margin-bottom: 5px;
+    color: rgba(26, 26, 31, 1);
+  }
+  .upload_photo_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 180px;
+  
+  
+    border: 1px dashed rgba(133, 133, 141, 1);
+    border-radius: 12px;
+    background-color: rgba(244, 243, 255, 1);
+  }
+  .add_blogs_folder_addImg{
+    width: 40px;
+    height: 40px;
+  }
+  .file_add_text{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  
+    width: 268px;
+    height: 20px;
+    margin-top: 20px;
+    color: rgba(26, 26, 31, 1);
+  }
+  .file_add_text span:nth-child(2){
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .file_add_text span:nth-child(2):hover{
+    color:rgb(124, 124, 133);
+    transition: 0.2s;
+  }
+
+
+  .uploaded_file_div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+    width: 600px;
+    height: 56px;
+    border-radius: 12px;
+    background-color:rgba(242, 242, 250, 1);
+  }
+  .uploaded_file_div >img{
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  .uploaded_file_div>span{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    width: 384px;
+    height: 20px;
+    margin-right:auto ;
+  }
+  .uploaded_file_div>p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+
+    color: rgba(26, 26, 31, 1);
+    background-color:rgba(242, 242, 250, 1);
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .uploaded_file_div>p:hover{
+    background-color: rgb(225, 225, 225);
+    transition: 0.2s;
+  }
+  /*upload photo-end*/
+
+  .form_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
+.common_input{
+    width: 278px;
+    height: 44px;
+    padding-left: 10px;
+
+    background-color: rgba(252, 252, 253, 1);
+    border: 1px solid rgba(228, 227, 235, 1);
+    border-radius: 12px;
+  }
+.common_input:focus{
+    outline: none;
+    background-color: rgba(247, 247, 255, 1);
+    border: 1.5px solid rgba(93, 55, 243, 1);
+}
+.validation_list{
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+
+    width: 216px;
+    height: 60px;
+    padding-left: 20px;
+    color: rgba(133, 133, 141, 1);
+}
+
+.desctription_input{
+    width: 590px;
+    height: 114px;
+    padding-left: 10px;
+    padding-top: 10px;
+    resize: none;
+
+    border: 1px solid rgba(228, 227, 235, 1);
+    border-radius: 12px;
+    background-color: rgba(252, 252, 253, 1);
+}
+.desctription_input:focus{
+    outline: none;
+    background-color: rgba(247, 247, 255, 1);
+    border: 1.5px solid rgba(93, 55, 243, 1);
+}
+
+.publish_button_div{
+    margin-left: auto;
+    margin-top: 100px;
+    width:288px ;
+}
+.publish_button{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+
+    width: 288px;
+    height: 40px;
+    padding: 10px 20px 10px 20px;
+    gap: 10px;
+
+    border: 0px;
+    border-radius: 8px;
+    background-color: rgba(228, 227, 235, 1);
+    color: rgba(255, 255, 255, 1);
+    cursor:not-allowed;
+}
