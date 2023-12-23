@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LoginContext from './LoginContext';
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 function Navbar() {
   const { isPopupOpen, 
           setIsPopupOpen, 
@@ -9,7 +9,17 @@ function Navbar() {
           aurizedPopup,
           setAuthorizedPopup
         } = useContext(LoginContext);
-  const [addBlogsPage,setAddBlogsPage]=useState(false)
+  const location = useLocation();
+  const [addBlogsPage, setAddBlogsPage] = useState(false);
+      
+  useEffect(() => {
+    if(location.pathname === '/add_blogs'){
+      setAddBlogsPage(true)
+    }
+    else if(location.pathname === '/'){
+      setAddBlogsPage(false)
+    }
+  }, [location.pathname]);
 
 
   const loginHandler=()=>{
@@ -32,12 +42,12 @@ function Navbar() {
               <button className='common_button' onClick={loginHandler}>შესვლა</button>
               :
               <>
-               <Link onClick={()=>setAddBlogsPage(true)} to="/add_blogs"><button className='common_button' >დაამატე ბლოგი</button></Link>
+               <Link to="/add_blogs"><button className='common_button' >დაამატე ბლოგი</button></Link>
                <button className='common_button' onClick={logOutHandler}>გასვლა</button>
               </>
             :
             <>
-              <Link onClick={()=>setAddBlogsPage(false)} to="/"><img src="/img/ArrowBack.png" className='back_icon'/></Link>
+              <Link to="/"><img src="/img/ArrowBack.png" className='back_icon'/></Link>
             </>  
           }
       </div>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {token} from "../Token"
 import LoginContext from './LoginContext'
 
+import {Link} from "react-router-dom"
 import { IoCloseSharp } from "react-icons/io5";
 import { MdError } from "react-icons/md";
 function Home() {
@@ -13,7 +14,8 @@ function Home() {
           authorizedPopup,
           setAuthorizedPopup 
         } = useContext(LoginContext);
-
+        
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [categoriesData,setCategoriesData]=useState()
   const [blogsData,setBlogsData]=useState()
@@ -55,7 +57,7 @@ function Home() {
       })
       .then(data => {
         setBlogsData(data.data)
- 
+        console.log(data.data)
       })
       .catch(error => {
         console.error('There is a problem with data fetching:', error);
@@ -66,7 +68,6 @@ function Home() {
   const submitHandler=(e)=>{
     e.preventDefault()
     
-    console.log(email)
 
     fetch("https://api.blog.redberryinternship.ge/api/login", {
       method: "POST",
@@ -115,6 +116,21 @@ const authorizedHandler=()=>{
   setAuthorizedPopup(false)
   setIsPopupOpen(false)
 }
+
+
+{/**********categories select */}
+const toggleCategory = (id, title) => {
+  const categoryIndex = selectedCategories.findIndex((cat) => cat.id === id);
+
+  if (categoryIndex === -1) {
+    setSelectedCategories([...selectedCategories, { id, title }]);
+  } else {
+    const updatedCategories = [...selectedCategories];
+    updatedCategories.splice(categoryIndex, 1);
+    setSelectedCategories(updatedCategories);
+  }
+};
+
   return (
     <div>
         <header className='header_div'>
@@ -127,32 +143,86 @@ const authorizedHandler=()=>{
           {
             categoriesData &&
             categoriesData.map((value)=>(
-                <div 
-                  key={value.id}
-                  className='each_category'
-                  style={{backgroundColor:value.background_color, color:value.text_color}}
-                >
+              <div
+              key={value.id}
+              className='each_category'
+              style={{
+                backgroundColor: value.background_color,
+                color: value.text_color,
+                border: selectedCategories.some((cat) => cat.id === value.id) ? '1px solid black' : 'none',
+              }}
+              onClick={() => toggleCategory(value.id, value.title)}
+            >
                   {value.title}
                 </div>
             ))
           }
         </div>
 
-      {/********will be complated,just not yet */}
+      {/********blogs*/}
+      <div className='blogs_container'>
         {
           blogsData===[]?
-          (
-            <>
-            </>
-          )
-          :
           (
             <>
               <h2>ბლოგები არ არის დამატებული...</h2>
             </>
           )
+          :
+          (
+            <>
+              {blogsData && blogsData
+                   //date filter
+                  .filter((value) => {
+                    const publishDate = new Date(value.publish_date);
+                    const currentDate = new Date();
+                    return publishDate <= currentDate;
+                  })
+                  .filter((value) => {
+                    //selected categories filter
+                    if (selectedCategories.length === 0) {
+                      return true; 
+                    } else {
+                      return value.categories.some((category) =>
+                        selectedCategories.some(
+                          (selectedCategory) => selectedCategory.title === category.title
+                        )
+                      );
+                    }
+                  })
+                  .map((value,index)=>(
+                    <div key={index} className='each_blog_container'>
+                      <img className='blog_img' src={value.image} alt="" />
+                      <h3>{value.author}</h3>
+                      <p className='blog_date'>{value.publish_date}</p>
+                      <p className='blog_title'>{value.title}</p>
+
+                      <div className='blog_category_div'>
+                        {
+                          value.categories && 
+                          value.categories.map((category)=>(
+                            <>
+                              <div 
+                                className='blog_each_category'
+                                style={{backgroundColor:category.background_color,color:category.text_color }}
+                              >
+                                {category.title}
+                              </div>
+                            </>
+                        ))
+                      }
+                  </div>
+
+                  <p className='blog_description'>{value.description}</p>
+
+                  <Link className='blog_open' to="/blog_id">სრულად ნახვა<img src="/img/blogsOpenArrow.png" alt="" /></Link>
+                </div>
+              ))}
+            </>
+          )
         }
-      {/********will be complated,just not yet */}
+      </div>
+      {/********blogs */}
 
 
       {/******Login popup */}
