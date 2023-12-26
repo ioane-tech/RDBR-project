@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import LoginContext from './LoginContext';
+import LoginContext from './context/LoginContext';
 import {Link, useLocation} from "react-router-dom"
 function Navbar() {
   const { isPopupOpen, 
@@ -49,6 +49,10 @@ function Navbar() {
             <>
               <Link to="/"><img src="/img/ArrowBack.png" className='back_icon'/></Link>
             </>  
+          }
+          {
+            location.pathname === '/blog_id' &&
+            <Link to="/"><img src="/img/ArrowBack.png" className='back_icon'/></Link>
           }
       </div>
   )

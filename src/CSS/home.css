@@ -75,7 +75,7 @@
   
   /******login******/
   .login_background{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -84,7 +84,7 @@
     opacity: 24%;
   }
   .login_popup{
-    position: absolute;
+    position: fixed;
     top: 314px ;
     left: 710px;
     width: 480px;
@@ -202,7 +202,7 @@
     line-height: 28px;
     text-align: center;
   
-    width: 284px;
+    width: 420px;
     height: 28px;
     margin-left: auto;
     margin-right: auto;
@@ -240,8 +240,8 @@
   font-weight: 500;
   line-height: 20px;
   
-  height: 20px;
   color:rgba(26, 26, 31, 1);
+  overflow-wrap: break-word;
 }
 .blog_date{
   font-size: 12px;
@@ -257,15 +257,19 @@
   line-height: 28px;
 
   color:rgba(26, 26, 31, 1);
+  overflow-wrap: break-word;
 }
 
 .blog_category_div{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 .blog_each_category{
+  display: flex;
+  
+  align-items: center;
+
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -273,6 +277,7 @@
   height: 28px;
   padding: 6px 10px 6px 10px;
   margin-top: 5px;
+  margin-right: 10px;
   gap: 10px;
 
   border-radius: 30px;

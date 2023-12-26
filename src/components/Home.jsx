@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {token} from "../Token"
-import LoginContext from './LoginContext'
+import LoginContext from './context/LoginContext'
+import BlogContext from './context/EachBlogContext'
 
 import {Link} from "react-router-dom"
 import { IoCloseSharp } from "react-icons/io5";
@@ -14,15 +15,42 @@ function Home() {
           authorizedPopup,
           setAuthorizedPopup 
         } = useContext(LoginContext);
-        
-  const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const [categoriesData,setCategoriesData]=useState()
-  const [blogsData,setBlogsData]=useState()
+    const {exactBlogId,setExactBlogId}=useContext(BlogContext)    
 
-  const [email,setEmail]=useState("")
-  const [loginError,setLoginError]=useState(false)
-  const [errorMessage,setErrorMessage]=useState('')
+    const [selectedCategories, setSelectedCategories] = useState([]);
+  
+    const [categoriesData,setCategoriesData]=useState()
+    const [blogsData,setBlogsData]=useState()
+      
+    const [email,setEmail]=useState("")
+    const [loginError,setLoginError]=useState(false)
+    const [errorMessage,setErrorMessage]=useState('')
+
+        ///****get info from local storage */
+  useEffect(() => {
+    const storedCategories = JSON.parse(localStorage.getItem('selectedCategories'));
+    if (storedCategories) {
+      setSelectedCategories(storedCategories);
+    }
+  }, []);
+  useEffect(() => {
+    const storedAuthorized = localStorage.getItem('authorized');
+    if (storedAuthorized === 'true') {
+      setLogedIn(true);
+    }
+  }, []);
+
+    ///****set info in local storage */
+  useEffect(() => {
+    localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
+  }, [selectedCategories]);
+  useEffect(() => {
+    localStorage.setItem('authorized', logedIn ? 'true' : 'false');
+  }, [logedIn]);
+
+       
+
 
   {/*********fetching categories */}
   useEffect(() => {
@@ -35,7 +63,6 @@ function Home() {
       })
       .then(data => {
         setCategoriesData(data.data)
-        console.log(data.data);
       })
       .catch(error => {
         console.error('There is a problem with data fetching:', error);
@@ -57,7 +84,6 @@ function Home() {
       })
       .then(data => {
         setBlogsData(data.data)
-        console.log(data.data)
       })
       .catch(error => {
         console.error('There is a problem with data fetching:', error);
@@ -131,6 +157,13 @@ const toggleCategory = (id, title) => {
   }
 };
 
+
+
+const blogIdHandler = (valueId) => {
+  localStorage.setItem('blogId', valueId);
+
+  setExactBlogId(valueId);
+};
   return (
     <div>
         <header className='header_div'>
@@ -215,7 +248,7 @@ const toggleCategory = (id, title) => {
 
                   <p className='blog_description'>{value.description}</p>
 
-                  <Link className='blog_open' to="/blog_id">სრულად ნახვა<img src="/img/blogsOpenArrow.png" alt="" /></Link>
+                  <Link onClick={()=>blogIdHandler(value.id)} className='blog_open' to="/blog_id">სრულად ნახვა<img src="/img/blogsOpenArrow.png" alt="" /></Link>
                 </div>
               ))}
             </>

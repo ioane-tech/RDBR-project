@@ -44,3 +44,23 @@
     transition: 0.3s;
   }
   
+
+  .back_icon{
+    position: absolute;
+    top: 120px;
+    left: 76px;
+    width: 44px;
+    height: 44px; 
+    border-radius: 24px;
+    cursor: pointer;
+    z-index: -1;
+    transition: 0.3s;
+  }
+  .back_icon:hover{
+    width: 49px;
+    height: 49px;
+    left: 65px;
+    top: 117px;
+    transition: 0.3s;
+  }
+  

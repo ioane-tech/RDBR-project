@@ -2,9 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import { MdError } from "react-icons/md";
 import { token } from '../Token';
+import { Link } from 'react-router-dom';
+import { IoCloseSharp } from "react-icons/io5";
 function AddBlogs() {
   const [categoriesData,setCategoriesData]=useState()
   const [allErrorChecker,setAllErrorCecker]=useState(false)
+  const [SuccessPostPopup,setSuccessPopup]=useState(false)
+
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -64,7 +68,9 @@ const [blogDate, setBlogDate] = useState(null);
     
     const wordsArray = inputValue.split(/\s+/).filter((word) => word.length > 0);
     
-    const hasEnoughSymbols = inputValue.length >= 4;
+    const inputValueWithoutSpaces = inputValue.replace(/\s+/g, ''); 
+    const hasEnoughSymbols = inputValueWithoutSpaces.length >= 4;
+
     const hasEnoughWords = wordsArray.length >= 2;
     const containsOnlyGeorgianLetters = georgianLetters.test(inputValue);
   
@@ -106,7 +112,9 @@ const [blogDate, setBlogDate] = useState(null);
   const headerInputHandler=(e)=>{
     const inputValue = e.target.value;
 
-    const hasEnoughSymbols = inputValue.length >= 2;
+    const inputValueWithoutSpaces = inputValue.replace(/\s+/g, ''); 
+    const hasEnoughSymbols = inputValueWithoutSpaces.length >= 2;
+
     if (hasEnoughSymbols) {
       setheaderTwoSymbolError(false);
     } else {
@@ -122,7 +130,9 @@ const [blogDate, setBlogDate] = useState(null);
   const descriptionHandler=(e)=>{
     const inputValue=e.target.value
 
-    const hasEnoughSymbols = inputValue.length >= 4;
+    const inputValueWithoutSpaces = inputValue.replace(/\s+/g, ''); 
+    const hasEnoughSymbols = inputValueWithoutSpaces.length >= 4;
+    
     if (hasEnoughSymbols) {
       setdescription4SymbolError(false);
     } else {
@@ -164,12 +174,13 @@ const [blogDate, setBlogDate] = useState(null);
       authorGeorgiaSymbolsError==null|| 
       headerTwoSybolError==null|| 
       description4SybolError==null|| 
-      emailError==null){
+      selectedFile==null
+      ){
         setAllErrorCecker(true)
       }else{
         setAllErrorCecker(false)
       }
-  },[authorfourSybolError,authorTwoWordsError,authorGeorgiaSymbolsError,headerTwoSybolError,description4SybolError,emailError])
+  },[authorfourSybolError,authorTwoWordsError,authorGeorgiaSymbolsError,headerTwoSybolError,description4SybolError,emailError,selectedFile])
 
 
   useEffect(() => {
@@ -193,29 +204,36 @@ const [blogDate, setBlogDate] = useState(null);
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(selectedOptions || []);
   };
-  
+
   const customStyles = {
     control: (provided) => ({
       ...provided,
       borderRadius: '12px',
       marginLeft: '-10px',
-      height:"44px",
-      overflowY:'auto',
-      display:'block',
+      height: '44px',
+      overflowY: 'auto',
+      backgroundColor: selectedCategories.length !== 0 ? 'rgba(248, 255, 248, 1)' : '',
+      borderColor: selectedCategories.length !== 0 ? 'rgba(20, 216, 28, 1)' : '',
     }),
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? state.data.background_color : 'transparent',
       color: state.isSelected ? state.data.text_color : '#333',
       borderRadius: '30px',
-      padding: '8px 12px',
+      padding: '8px 16px 8px 16px',
       margin: '8px 0',
+      marginBottom:"5px",
+      marginLeft:'5px',
+
       backgroundColor: state.data.background_color,
       color: state.data.text_color,
-      cursor:'pointer',
+      cursor: 'pointer',
       ':hover': {
-        opacity:'0.6'
+        opacity: '0.6',
       },
+      display:'inline-block',
+  
+      width: 'auto', 
     }),
     singleValue: (provided, state) => ({
       ...provided,
@@ -239,12 +257,18 @@ const [blogDate, setBlogDate] = useState(null);
     }),
     menu: (provided) => ({
       ...provided,
+      disabled: 'flex',
+      flexDirection: 'row',
       borderRadius: '30px',
       backgroundColor: '#fff',
       padding: '8px 0',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      overflowX: 'auto', 
-      maxWidth: '100%', 
+      overflowX: 'auto',
+      maxWidth: '100%',
+      
+      display: 'flex',
+      flexWrap: 'wrap', 
+      justifyContent: 'flex-start', 
     }),
   };
   
@@ -261,6 +285,8 @@ const [blogDate, setBlogDate] = useState(null);
   const handlerSubmit = (e) => {
     e.preventDefault();
 
+    const selectedCategoryIds = selectedCategories.map(category => category.id);
+    console.log(selectedCategoryIds)
     const formattedDate = blogDate ? blogDate.toISOString().split('T')[0] : '';
 
     const formData = new FormData();
@@ -269,7 +295,7 @@ const [blogDate, setBlogDate] = useState(null);
     formData.append('description', description);
     formData.append('author', author);
     formData.append('publish_date', formattedDate);
-    formData.append('categories', JSON.stringify(selectedCategories.map(category => category.value)));
+    formData.append('categories', JSON.stringify(selectedCategoryIds));
     formData.append('email', email);
 
     fetch("https://api.blog.redberryinternship.ge/api/blogs", {
@@ -283,6 +309,7 @@ const [blogDate, setBlogDate] = useState(null);
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       } else {
+        setSuccessPopup(true)
       }
     })
     .catch((error) => {
@@ -310,6 +337,7 @@ const [blogDate, setBlogDate] = useState(null);
                   <input
                     type="file"
                     name='photo'
+                    accept="image/*"
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     style={{ display: 'none' }}
@@ -476,6 +504,7 @@ const [blogDate, setBlogDate] = useState(null);
               <Select
                 className='common_input'
                 options={categoriesData && categoriesData.map((category) => ({
+                  id:category.id,
                   label: category.title,
                   value: category.title,
                   background_color: category.background_color,
@@ -530,6 +559,19 @@ const [blogDate, setBlogDate] = useState(null);
           </div>
         </form>
       </div>
+      {
+        SuccessPostPopup==true &&
+        <>
+          <div className='login_background'></div>
+          <div className='login_popup'>
+            <p className='close_button'><Link to="/"><IoCloseSharp className='close_button'/></Link></p>
+
+            <img className='succsess_img' src='./img/succsessImg.png'/>
+            <p className='authorized_text'>ბლოგი წარმატებით დაემატა</p>
+            <Link to="/"><button className='login_submit'>მთავარ გვერდზე დაბრუნება</button></Link>
+          </div>
+        </>
+      }
     </div>
   );
 }
