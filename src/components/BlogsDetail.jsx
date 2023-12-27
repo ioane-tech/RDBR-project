@@ -2,18 +2,51 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBackCircle } from "react-icons/io5";
 import { IoChevronForwardCircleSharp } from "react-icons/io5";
 
+import LoginContext from './context/LoginContext'
 import { token } from '../Token'
 import { Link } from 'react-router-dom'
 import BlogContext from './context/EachBlogContext'
+import LoginForm from './LoginForm';
 
 function BlogsDetail() {
+  const { 
+    isPopupOpen, 
+    setIsPopupOpen, 
+    logedIn, 
+    setLogedIn,
+    authorizedPopup,
+    setAuthorizedPopup 
+  } = useContext(LoginContext);
+
     const {exactBlogId,setExactBlogId}=useContext(BlogContext)  
     
     const [exactBlogData,setExactBlogData]=useState()
     const [blogsData,setBlogsData]=useState()
 
-    const [visibleBlogs, setVisibleBlogs] = useState([]);
-    const [startIndex, setStartIndex] = useState(0);
+    const [visibleRange, setVisibleRange] = useState({ start: 1, end: 3 });
+
+
+
+    
+///****get info from local storage */
+  useEffect(() => {
+    const storedAuthorized = localStorage.getItem('authorized');
+    if (storedAuthorized === 'true') {
+      setLogedIn(true);
+    }
+  }, []);
+
+///****set info in local storage */
+  useEffect(() => {
+    localStorage.setItem('authorized', logedIn ? 'true' : 'false');
+  }, [logedIn]);
+
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', 
+      });
+    };
 
     /*******fetch blogs */
     useEffect(() => {
@@ -61,7 +94,7 @@ function BlogsDetail() {
 
   const blogIdHandler = (valueId) => {
     localStorage.setItem('blogId', valueId);
-      
+    scrollToTop()
     setExactBlogId(valueId);
   };
 
@@ -73,25 +106,41 @@ function BlogsDetail() {
 }, [setExactBlogId]);
 
 /**********carosuel */
-useEffect(() => {
-  const endIndex = startIndex + 3;
-  const visible = blogsData.slice(startIndex, endIndex);
-  setVisibleBlogs(visible);
-}, [startIndex, blogsData]);
-
 const handleForwardClick = () => {
-  const nextIndex = startIndex + 3;
-  if (nextIndex < blogsData.length) {
-    setStartIndex(nextIndex);
+  const newStart = visibleRange.end + 1;
+  const newEnd = newStart + 2; // Display the next 3 blogs
+
+  if (newEnd <= blogsData.length) {
+    setVisibleRange({ start: newStart, end: newEnd });
+  } else if (newStart <= blogsData.length) {
+    setVisibleRange({ start: newStart, end: blogsData.length });
   }
 };
 
 const handleBackwardClick = () => {
-  const prevIndex = startIndex - 3;
-  if (prevIndex >= 0) {
-    setStartIndex(prevIndex);
+  const newEnd = visibleRange.start - 1;
+  const newStart = newEnd - 2;
+
+  if (newStart >= 1) {
+    setVisibleRange({ start: newStart, end: newEnd });
+  } else if (newEnd >= 1) {
+    setVisibleRange({ start: 1, end: newEnd });
   }
 };
+
+/*****filter to only have  blogs that have same categories */
+const filteredBlogsData = blogsData && blogsData.filter((blog) =>
+  blog.categories.some((category) =>
+    exactBlogData.categories.some(
+      (exactCategory) => exactCategory.title === category.title
+    )
+  )
+);
+  const isLastBlogVisible =
+    visibleRange.end >= (filteredBlogsData?.length || 0) &&
+    (filteredBlogsData?.length || 0) > 0;
+  const isFirstBlogVisible = visibleRange.start === 1;
+
   return (
     <div >
 
@@ -126,18 +175,26 @@ const handleBackwardClick = () => {
 
         <div className='same_blogs_header_container'>
           <h3 className='same_blogs_header'>მსგავსი სტატიები</h3>
-          <IoChevronBackCircle className='same_blogs_carosuel_arrow'/>
-          <IoChevronForwardCircleSharp className='same_blogs_carosuel_arrow'/>
+          <IoChevronBackCircle 
+            onClick={handleBackwardClick } 
+            className='same_blogs_carosuel_arrow'
+            style={{ color: isFirstBlogVisible ? 'rgba(228, 227, 235, 1)' : '' }}
+          />
+          <IoChevronForwardCircleSharp 
+            onClick={isLastBlogVisible ? () => {} : handleForwardClick } 
+            className='same_blogs_carosuel_arrow'
+            style={{
+              cursor: isLastBlogVisible ? 'not-allowed' : 'pointer',
+              color: isLastBlogVisible ? 'rgba(228, 227, 235, 1)' : ''
+            }}
+          />
         </div>
 
         <div className='same_blogs_container'>
             {
                 blogsData &&
-                    blogsData.filter((blog) =>
-                    blog.categories.some((category) =>
-                        exactBlogData.categories.some((exactCategory) => exactCategory.title === category.title)
-                    )
-                    )
+                filteredBlogsData
+                    .slice(visibleRange.start - 1, visibleRange.end)
                     .map((value,index)=>(
                         <>
                            <div key={index} className='each_blog_container'>
@@ -171,6 +228,7 @@ const handleBackwardClick = () => {
 
             }
 
+          <LoginForm/>
         </div>
     </div>
   )

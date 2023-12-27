@@ -59,7 +59,7 @@
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
-    width: 1288px;
+    width: 1717px;
 }   
 .same_blogs_header{
     font-size: 32px;
@@ -90,10 +90,11 @@
     flex-direction: row;
     overflow: hidden;
 
-    width: 1288px;
-    height: 650px;
+    width: 1717px;
+    
+    margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
-    gap: 30px;
+    gap: 40px;
 }
 

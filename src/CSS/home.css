@@ -28,7 +28,7 @@
     flex-direction: row;
     overflow-x: scroll;
   
-    width: 60%;
+    width: 912px;
     height: 65px;
     margin-top: 50px;
     margin-left: auto;
@@ -216,21 +216,21 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-
+    overflow-wrap: break-word;
     margin-top: 100px;
-    margin-left: 76px;
-    gap: 32px;
-    width: 1288px;
+    margin-left: 101px;
+    gap: 42px;
+    width: 1717px;
   }
 .each_blog_container{
-  width: 408px;
-  gap: 24px;
+  width: 544px;
+  gap: 32px;
 
   margin-bottom: 10px;
 }
 
 .blog_img{
-  width: 408px;
+  width: 544px;
   height: 328px;
 
   border-radius: 12px;

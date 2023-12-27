@@ -5,21 +5,58 @@ import { token } from '../Token';
 import { Link } from 'react-router-dom';
 import { IoCloseSharp } from "react-icons/io5";
 function AddBlogs() {
+
+/**values from local storage */
+  const savedData = JSON.parse(localStorage.getItem('formData')) || {
+    selectedFile: null,
+    selectedCategories: [],
+    author: '',
+    header: '',
+    description: '',
+    email: '',
+    blogDate: null,
+  };
+
+/************set errors if local storage values cant or can get through validations*/
+  useEffect(() => {
+    if (savedData.author) {
+      authorWrightHandler({ target: { value: savedData.author } });
+    }
+
+    if (savedData.header) {
+      headerInputHandler({ target: { value: savedData.header } });
+    }
+
+    if (savedData.description) {
+      descriptionHandler({ target: { value: savedData.description } });
+    }
+
+    if (savedData.email) {
+      emailHandler({ target: { value: savedData.email } });
+    }
+  }, []);
+
+
+
+
   const [categoriesData,setCategoriesData]=useState()
   const [allErrorChecker,setAllErrorCecker]=useState(false)
   const [SuccessPostPopup,setSuccessPopup]=useState(false)
 
+/*image state**/
   const fileInputRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState('');
+  const [selectedFile, setSelectedFile] = useState(savedData.selectedFile);
 
-{/****categories state */}
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [imageError,setImageError]=useState(false)
+/****categories state */
+  const [selectedCategories, setSelectedCategories] = useState(savedData.selectedCategories);
 
-{/**date state */}
-const [blogDate, setBlogDate] = useState(null);
+/**date state */
+  const [blogDate, setBlogDate] = useState(null);
 
-{/*****author input states */}
-  const [author,setAuthor]=useState("")
+/*****author input states */
+  const [author, setAuthor] = useState(savedData.author);
 
   const [authorfourSybolError,setAuthorFourSymbolError]=useState()
   const [authorTwoWordsError,setAuthorTwoWordsError]=useState()
@@ -28,33 +65,103 @@ const [blogDate, setBlogDate] = useState(null);
   const [inputErrorColor,setInputErrorColor]=useState()
 
 {/*****header input states */}
-  const [header,setHeader]=useState("")
+  const [header, setHeader] = useState(savedData.header);
 
   const [headerTwoSybolError,setheaderTwoSymbolError]=useState()
 
 {/*****description input states */}
-  const [description,setDescription]=useState("")
+  const [description, setDescription] = useState(savedData.description);
   const [description4SybolError,setdescription4SymbolError]=useState()
 
 {/*****email input states */}
-  const [email,setEmail]=useState("")
+  const [email, setEmail] = useState(savedData.email);
   const [emailError,setEmailError]=useState()
 
+
+/*****set values in local storage */
+useEffect(() => {
+  const formData = {
+    selectedFile,
+    selectedCategories,
+    author,
+    header,
+    description,
+    email,
+    blogDate,
+  };
+
+  localStorage.setItem('formData', JSON.stringify(formData));
+}, [selectedFile, selectedCategories, author, header, description, email,blogDate]);
+
+useEffect(() => {
+  const savedDate = savedData.blogDate;
+  if (savedDate) {
+    setBlogDate(new Date(savedDate));
+  }
+
+}, [savedData.blogDate]);
+
+
+
+
+/******************************************************image local storage handling */
+useEffect(() => {
+  const savedSelectedFile = localStorage.getItem('selectedFile');
+  const savedFileName = localStorage.getItem('selectedFileName');
+  if (savedSelectedFile && savedFileName) {
+    const blob = dataURItoBlob(savedSelectedFile);
+    setSelectedFile(blob);
+    setSelectedFileName(savedFileName);
+  }
+}, []);
+
+// Convert data URI to Blob
+const dataURItoBlob = (dataURI) => {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+};
+
+// Save selectedFile and its name to localStorage when they change
+useEffect(() => {
+  if (selectedFile && selectedFileName) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      localStorage.setItem('selectedFile', base64data);
+      localStorage.setItem('selectedFileName', selectedFileName);
+    };
+
+    if (selectedFile instanceof Blob) {
+      reader.readAsDataURL(selectedFile);
+    }
+  } else {
+    localStorage.removeItem('selectedFile');
+    localStorage.removeItem('selectedFileName');
+  }
+}, [selectedFile, selectedFileName]);
 
 
 
 
 {/**************************************** handlers *************************** */}
 {/***file upload handler */}
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  setSelectedFile(file);
+  setSelectedFileName(file.name); 
+};
   const removeFile = () => {
     setSelectedFile(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
+    setImageError(false)
   };
   const handleButtonClick = (e) => {
     e.preventDefault()
@@ -174,13 +281,15 @@ const [blogDate, setBlogDate] = useState(null);
       authorGeorgiaSymbolsError==null|| 
       headerTwoSybolError==null|| 
       description4SybolError==null|| 
-      selectedFile==null
+      selectedFile==null||
+      selectedCategories.length === 0
       ){
         setAllErrorCecker(true)
       }else{
         setAllErrorCecker(false)
       }
-  },[authorfourSybolError,authorTwoWordsError,authorGeorgiaSymbolsError,headerTwoSybolError,description4SybolError,emailError,selectedFile])
+      console.log(selectedCategories)
+  },[authorfourSybolError,authorTwoWordsError,authorGeorgiaSymbolsError,headerTwoSybolError,description4SybolError,emailError,selectedFile,selectedCategories])
 
 
   useEffect(() => {
@@ -193,7 +302,6 @@ const [blogDate, setBlogDate] = useState(null);
       })
       .then(data => {
         setCategoriesData(data.data)
-        console.log(data.data);
       })
       .catch(error => {
         console.error('There is a problem with data fetching:', error);
@@ -202,7 +310,7 @@ const [blogDate, setBlogDate] = useState(null);
 
 {/***categories */}  
   const handleCategoryChange = (selectedOptions) => {
-    setSelectedCategories(selectedOptions || []);
+      setSelectedCategories(selectedOptions || []);
   };
 
   const customStyles = {
@@ -286,7 +394,6 @@ const [blogDate, setBlogDate] = useState(null);
     e.preventDefault();
 
     const selectedCategoryIds = selectedCategories.map(category => category.id);
-    console.log(selectedCategoryIds)
     const formattedDate = blogDate ? blogDate.toISOString().split('T')[0] : '';
 
     const formData = new FormData();
@@ -306,15 +413,23 @@ const [blogDate, setBlogDate] = useState(null);
       body: formData, 
     })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      } else {
-        setSuccessPopup(true)
+      if (response.status!=204) {
+        throw new Error('Failed to upload the image or submit data.');
+      }else{
+        localStorage.removeItem('formData');
+        localStorage.removeItem('selectedFile');
+        localStorage.removeItem('selectedFileName');
+
+        setSuccessPopup(true);
+        setImageError(false);
       }
+
     })
     .catch((error) => {
-      console.error('Error sending data:', error);
+      console.error('Error uploading image or submitting data:', error);
+      setImageError(true);
     });
+
   };
 
   return (
@@ -337,6 +452,7 @@ const [blogDate, setBlogDate] = useState(null);
                   <input
                     type="file"
                     name='photo'
+                    value={selectedFile}
                     accept="image/*"
                     ref={fileInputRef}
                     onChange={handleFileChange}
@@ -349,10 +465,17 @@ const [blogDate, setBlogDate] = useState(null);
               (
                 <div className='uploaded_file_div'>
                   <img src="/img/uploadedImg.png" alt="" />
-                  <span>{selectedFile.name}</span> 
+                  <span>{selectedFileName}</span> 
                   <p onClick={removeFile}>&times;</p>
                 </div>
               )
+            }
+            {
+              imageError==true &&
+              <p style={{marginLeft:"-20px"}} className='login_error'>
+              <MdError className='error_icon'/>
+              <span>ატვირთეთ სხვა ფოტო</span>
+              </p>
             }
 
           <div className='form_container'>
@@ -368,6 +491,7 @@ const [blogDate, setBlogDate] = useState(null);
                   className='common_input' 
                   type="text" 
                   name='author' 
+                  value={author}
                   placeholder='შეიყვანეთ ავტორი' 
                   required  
                 />
@@ -429,6 +553,7 @@ const [blogDate, setBlogDate] = useState(null);
                   className='common_input' 
                   type="text" 
                   name='header' 
+                  value={header}
                   placeholder='შეიყვანეთ სათაური' 
                   required 
                 />
@@ -461,6 +586,7 @@ const [blogDate, setBlogDate] = useState(null);
                   className='desctription_input' 
                   type="text" 
                   name='description' 
+                  value={description}
                   placeholder='შეიყვანეთ სათაური' 
                   required 
                 />
@@ -530,6 +656,7 @@ const [blogDate, setBlogDate] = useState(null);
                   className='common_input' 
                   type="email" 
                   name='email' 
+                  value={email}
                   placeholder='Example@redberry.ge' 
                 />
                 {
