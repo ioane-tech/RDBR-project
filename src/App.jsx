@@ -15,6 +15,7 @@ import "./CSS/addBlogs.css"
 import "./CSS/blogsDetail.css"
 
 import BlogsDetail from './components/BlogsDetail';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path='/' element={<Home/>}/> 
             <Route path='/add_blogs' element={<AddBlogs/>}/> 
             <Route path='blog_id' element={<BlogsDetail/>}/>
+            <Route path='/*' element={<ErrorPage/>}/>
           </Routes>
         </div>
       </EachBlogProvider>
