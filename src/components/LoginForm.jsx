@@ -37,7 +37,7 @@ function LoginForm() {
           body: JSON.stringify({ email })
         })
         .then(response => {
-          if (response.status!=204) {
+          if (response.status!==204) {
             setLoginError(true);
             setErrorMessage("ელ-ფოსტა არ მოიძებნა")
           }
@@ -88,7 +88,7 @@ function LoginForm() {
               
 
               {
-                authorizedPopup ==false &&
+                authorizedPopup ===false &&
                 <>
                   <p className='Login_header'>შესვლა</p>
                 <label className='login_label' htmlFor="email">ელ-ფოსტა</label>
@@ -114,7 +114,7 @@ function LoginForm() {
               }
               
               {
-                authorizedPopup==true &&
+                authorizedPopup===true &&
                 <>
                   <div style={{marginLeft:"auto",marginRight:'auto'}}>
                     <img className='succsess_img' src='./img/succsessImg.png'/>

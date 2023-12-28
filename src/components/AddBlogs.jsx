@@ -413,7 +413,7 @@ const handleFileChange = (event) => {
       body: formData, 
     })
     .then((response) => {
-      if (response.status!=204) {
+      if (response.status!==204) {
         throw new Error('Failed to upload the image or submit data.');
       }else{
         localStorage.removeItem('formData');
@@ -441,7 +441,7 @@ const handleFileChange = (event) => {
 
           <label className='add_blogs_label' htmlFor='photo'>ატვირთეთ ფოტო</label>
             {
-              selectedFile==null?
+              selectedFile===null?
               (
                 <div className='upload_photo_div'>
                   <img src="/img/folderAdd.png" alt="" className='add_blogs_folder_addImg'/>
@@ -471,7 +471,7 @@ const handleFileChange = (event) => {
               )
             }
             {
-              imageError==true &&
+              imageError===true &&
               <p style={{marginLeft:"-20px"}} className='login_error'>
               <MdError className='error_icon'/>
               <span>ატვირთეთ სხვა ფოტო</span>
@@ -484,8 +484,8 @@ const handleFileChange = (event) => {
               <label className='add_blogs_label' htmlFor='author'>ავტორი *</label>
                 <input 
                   style={{
-                    backgroundColor:inputErrorColor==true? "rgba(250, 242, 243, 1)" : inputErrorColor==false? "rgba(248, 255, 248, 1)" : "",
-                    borderColor:inputErrorColor==true? "rgba(234, 25, 25, 1)" : inputErrorColor==false? "rgba(20, 216, 28, 1)" : ""
+                    backgroundColor:inputErrorColor===true? "rgba(250, 242, 243, 1)" : inputErrorColor===false? "rgba(248, 255, 248, 1)" : "",
+                    borderColor:inputErrorColor===true? "rgba(234, 25, 25, 1)" : inputErrorColor===false? "rgba(20, 216, 28, 1)" : ""
                   }}
                   onChange={(e)=>authorWrightHandler(e)}
                   className='common_input' 
@@ -498,13 +498,13 @@ const handleFileChange = (event) => {
                 <ul className='validation_list'>
                   <li 
                     style={{
-                      color:authorfourSybolError==true? 
+                      color:authorfourSybolError===true? 
                       "rgba(234, 25, 25, 1)"
                       :
-                      authorfourSybolError==false? 
+                      authorfourSybolError===false? 
                       'rgba(20, 216, 28, 1)'
                       :
-                      authorfourSybolError==null? 
+                      authorfourSybolError===null? 
                       "rgba(133, 133, 141, 1)"
                       :
                       ""
@@ -514,10 +514,10 @@ const handleFileChange = (event) => {
                   </li>
                   <li 
                     style={{
-                      color:authorTwoWordsError==true? 
+                      color:authorTwoWordsError===true? 
                       "rgba(234, 25, 25, 1)"
                       :
-                      authorTwoWordsError==false? 
+                      authorTwoWordsError===false? 
                       'rgba(20, 216, 28, 1)'
                       :
                       ""
@@ -527,10 +527,10 @@ const handleFileChange = (event) => {
                   </li>
                   <li 
                     style={{
-                      color:authorGeorgiaSymbolsError==true? 
+                      color:authorGeorgiaSymbolsError===true? 
                       "rgba(234, 25, 25, 1)"
                       :
-                      authorGeorgiaSymbolsError==false? 
+                      authorGeorgiaSymbolsError===false? 
                       'rgba(20, 216, 28, 1)'
                       :
                       ""
@@ -546,8 +546,8 @@ const handleFileChange = (event) => {
               <label className='add_blogs_label' htmlFor='header'>სათაური *</label>
                 <input 
                   style={{
-                    backgroundColor:headerTwoSybolError==true? "rgba(250, 242, 243, 1)"  : headerTwoSybolError==false? "rgba(248, 255, 248, 1)" :"",
-                    borderColor:headerTwoSybolError==true? "rgba(234, 25, 25, 1)" : headerTwoSybolError==false? "rgba(20, 216, 28, 1)" : ""
+                    backgroundColor:headerTwoSybolError===true? "rgba(250, 242, 243, 1)"  : headerTwoSybolError===false? "rgba(248, 255, 248, 1)" :"",
+                    borderColor:headerTwoSybolError===true? "rgba(234, 25, 25, 1)" : headerTwoSybolError===false? "rgba(20, 216, 28, 1)" : ""
                   }}
                   onChange={(e)=>headerInputHandler(e)}
                   className='common_input' 
@@ -560,10 +560,10 @@ const handleFileChange = (event) => {
                 <ul className='validation_list'>
                   <li
                     style={{
-                      color:headerTwoSybolError==true? 
+                      color:headerTwoSybolError===true? 
                       "rgba(234, 25, 25, 1)"
                       :
-                      headerTwoSybolError==false? 
+                      headerTwoSybolError===false? 
                       'rgba(20, 216, 28, 1)'
                       :
                       ""
@@ -579,8 +579,8 @@ const handleFileChange = (event) => {
               <label className='add_blogs_label' htmlFor='desctiption'>აღწერა *</label>
                 <textarea 
                   style={{
-                    backgroundColor:description4SybolError==true? "rgba(250, 242, 243, 1)"  : description4SybolError==false? "rgba(248, 255, 248, 1)" :"",
-                    borderColor:description4SybolError==true? "rgba(234, 25, 25, 1)" : description4SybolError==false? "rgba(20, 216, 28, 1)" : ""
+                    backgroundColor:description4SybolError===true? "rgba(250, 242, 243, 1)"  : description4SybolError===false? "rgba(248, 255, 248, 1)" :"",
+                    borderColor:description4SybolError===true? "rgba(234, 25, 25, 1)" : description4SybolError===false? "rgba(20, 216, 28, 1)" : ""
                   }}
                   onChange={(e)=>descriptionHandler(e)}
                   className='desctription_input' 
@@ -593,10 +593,10 @@ const handleFileChange = (event) => {
                 <ul className='validation_list'>
                   <li
                     style={{
-                      color:description4SybolError==true? 
+                      color:description4SybolError===true? 
                       "rgba(234, 25, 25, 1)"
                       :
-                      description4SybolError==false? 
+                      description4SybolError===false? 
                       'rgba(20, 216, 28, 1)'
                       :
                       ""
@@ -649,8 +649,8 @@ const handleFileChange = (event) => {
               <label className='add_blogs_label' htmlFor='email'>ელ-ფოსტა *</label>
                 <input 
                   style={{
-                    backgroundColor:emailError==true? "rgba(250, 242, 243, 1)"  : emailError==false? "rgba(248, 255, 248, 1)" :"",
-                    borderColor:emailError==true? "rgba(234, 25, 25, 1)" : emailError==false? "rgba(20, 216, 28, 1)" : ""
+                    backgroundColor:emailError===true? "rgba(250, 242, 243, 1)"  : emailError===false? "rgba(248, 255, 248, 1)" :"",
+                    borderColor:emailError===true? "rgba(234, 25, 25, 1)" : emailError===false? "rgba(20, 216, 28, 1)" : ""
                   }}
                   onChange={(e)=>emailHandler(e)}
                   className='common_input' 
@@ -687,7 +687,7 @@ const handleFileChange = (event) => {
         </form>
       </div>
       {
-        SuccessPostPopup==true &&
+        SuccessPostPopup===true &&
         <>
           <div className='login_background'></div>
           <div className='login_popup'>

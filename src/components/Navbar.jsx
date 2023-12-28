@@ -37,8 +37,8 @@ function Navbar() {
               </Link>
               <img style={{marginLeft:addBlogsPage && "auto"}} className='logo' src="LOGO.png" alt="" />
           {
-            addBlogsPage==false?
-              logedIn==false?
+            addBlogsPage===false?
+              logedIn===false?
               <button className='common_button' onClick={loginHandler}>შესვლა</button>
               :
               <>
