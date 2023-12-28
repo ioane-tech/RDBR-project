@@ -1,10 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import { MdError } from 'react-icons/md';
 import { IoCloseSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { token } from '../Token';
+
+import LoginContext from './context/LoginContext' 
 function AddBlogs() {
+
+  const { 
+    logedIn, 
+    setLogedIn,
+  } = useContext(LoginContext);
+
+  useEffect(() => {
+    const storedAuthorized = localStorage.getItem('authorized');
+    if (storedAuthorized === 'true') {
+      setLogedIn(true);
+    }
+  }, []);
+
+
 
 /**values from local storage */
   const savedData = JSON.parse(localStorage.getItem('formData')) || {
@@ -16,6 +32,7 @@ function AddBlogs() {
     email: '',
     blogDate: null,
   };
+
 
 /************set errors if local storage values cant or can get through validations*/
   useEffect(() => {
@@ -433,7 +450,11 @@ const handleFileChange = (event) => {
   };
 
   return (
+    <>
+    {logedIn===true?
+    (
     <div>
+
       <div className='add_blog_container'>
         <p className='add_blogs_header'>ბლოგის დამატება</p>
 
@@ -643,6 +664,7 @@ const handleFileChange = (event) => {
                 required
               />
             </div>  
+            
 
             {/*****email */}
             <div>
@@ -699,7 +721,12 @@ const handleFileChange = (event) => {
           </div>
         </>
       }
-    </div>
+
+      </div>)
+      :
+      <h2>გვერდი ვერ მოიძებნა! <Link to='/'>დაბრუნდით უკან</Link> და გთხოვთ გაიარეთ რეგისტრაცია</h2>
+    }
+    </>
   );
 }
 export default AddBlogs;

@@ -142,6 +142,10 @@ const filteredBlogsData = blogsData && blogsData.filter((blog) =>
   const isFirstBlogVisible = visibleRange.start === 1;
 
   return (
+    <>
+    {
+      logedIn===true?
+     ( 
     <div >
 
         <div className='blogs_detail_container'>
@@ -230,7 +234,11 @@ const filteredBlogsData = blogsData && blogsData.filter((blog) =>
 
           <LoginForm/>
         </div>
-    </div>
+    </div>)
+    :
+      <h2>გვერდი ვერ მოიძებნა! <Link to='/'>დაბრუნდით უკან</Link> და გთხოვთ გაიარეთ რეგისტრაცია</h2>
+    }
+  </>
   )
 }
 

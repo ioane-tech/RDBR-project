@@ -6,6 +6,8 @@ export const PopupProvider = ({ children }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [logedIn, setLogedIn] = useState(false);
   const [authorizedPopup,setAuthorizedPopup]=useState(false)
+
+  console.log(logedIn)
   return (
     <LoginContext.Provider value={{ isPopupOpen, setIsPopupOpen, logedIn, setLogedIn,authorizedPopup,setAuthorizedPopup }}>
       {children}
