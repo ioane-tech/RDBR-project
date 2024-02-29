@@ -42,8 +42,10 @@ function Navbar() {
               <button className='common_button' onClick={loginHandler}>შესვლა</button>
               :
               <>
-               <Link to="/add_blogs"><button className='common_button' >დაამატე ბლოგი</button></Link>
-               <button className='common_button' onClick={logOutHandler}>გასვლა</button>
+                <div className='navbar_buttons_div'>
+                  <Link to="/add_blogs"><button className='common_button' >დაამატე ბლოგი</button></Link>
+                  <button className='common_button' onClick={logOutHandler}>გასვლა</button>
+               </div>
               </>
             :
             <>

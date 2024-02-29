@@ -8,6 +8,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { MdError } from "react-icons/md";
 import LoginForm from './LoginForm'
 function Home() {
+  const [importantMessage,setImportantMessage]=useState(true)
+
   const { 
           isPopupOpen, 
           setIsPopupOpen, 
@@ -22,7 +24,7 @@ function Home() {
     const [selectedCategories, setSelectedCategories] = useState([]);
   
     const [categoriesData,setCategoriesData]=useState()
-    const [blogsData,setBlogsData]=useState()
+    const [blogsData,setBlogsData]=useState([])
       
 
   ///****get info from local storage */
@@ -112,6 +114,8 @@ const blogIdHandler = (valueId) => {
 };
   return (
     <div>
+
+
         <header className='header_div'>
             <h1 className='home_header'>ბლოგი</h1>
             <img className='home_header_img' src="./img/HomeImg.png" alt="" />
@@ -141,7 +145,7 @@ const blogIdHandler = (valueId) => {
       {/********blogs*/}
       <div className='blogs_container'>
         {
-          blogsData===[]?
+          blogsData.length == 0?
           (
             <>
               <h2>ბლოგები არ არის დამატებული...</h2>

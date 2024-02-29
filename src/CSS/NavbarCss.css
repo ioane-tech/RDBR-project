@@ -26,7 +26,9 @@
     font-weight: bold;
     letter-spacing: 1px;
   
+    width: 170px;
     height: 40px;
+    
     margin-top: 20px;
     margin-right: 50px;
     padding: 10px 20px 10px 20px;
@@ -64,3 +66,26 @@
     transition: 0.3s;
   }
   
+  @media (max-width:680px){
+    .navbar_div{
+      flex-direction: column;
+      height: fit-content;
+    }
+    .navbar_buttons_div{
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo{
+      margin-left: auto;
+    }
+    .common_button{
+      margin-right: 0px;
+    }
+  }

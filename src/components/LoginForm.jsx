@@ -105,6 +105,8 @@ function LoginForm() {
                   placeholder='Example@redberry.ge '
                   onChange={(e)=>handleEmailChange(e)}
                 />
+
+                <p className='login_error'><MdError className='error_icon'/><span>შესასვლელად შეიყვანეთ "gigagiorgadze@redberry.ge"</span></p>
                 {
                   loginError &&
                   <p className='login_error'><MdError className='error_icon'/><span>{errorMessage}</span></p>
