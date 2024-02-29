@@ -12,7 +12,7 @@
 }
 .exact_image{
     width: 820px;
-    height: 328px;
+    height: 428px;
     border-radius: 12px;
 }
 .blogs_detail_container>h3{
@@ -98,3 +98,30 @@
     gap: 90px;
 }
 
+
+
+@media (max-width:835px){
+    .blogs_detail_container{
+        width: 500px;
+    }
+    .exact_image{
+        width: 500px;
+        height: 250px;
+    }
+}
+
+@media (max-width:685px){
+    .blogs_detail_container{
+      margin-top: 250px;
+    }
+
+}
+@media (max-width:525px){
+    .blogs_detail_container{
+      width: 310px;
+    }
+    .exact_image{
+        width: 310px;
+        height: 150px;
+    }
+}

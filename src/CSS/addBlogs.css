@@ -204,8 +204,31 @@
 
 @media(max-width:690px){
   .add_blog_container{
-    width: 320px;
-    border: 1px solid red;
+    width: 450px;
+  }
+  .upload_photo_div{
+    width: 450px;
+  }
+  .uploaded_file_div{
+    width: 450px;
+  }
+  .desctription_input{
+    width: 440px;
+  }
+}
+
+@media(max-width:470px){
+  .add_blog_container{
+    width: 310px;
+  }
+  .upload_photo_div{
+    width: 310px;
+  }
+  .uploaded_file_div{
+    width: 310px;
+  }
+  .desctription_input{
+    width: 290px;
   }
 }
 

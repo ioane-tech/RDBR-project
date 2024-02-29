@@ -84,8 +84,16 @@
     }
     .logo{
       margin-left: auto;
+      margin-bottom: 20px;
     }
     .common_button{
       margin-right: 0px;
+    }
+  }
+
+  @media (max-width:680px){
+    .back_icon{
+      top: 10px;
+      left: 20px;
     }
   }
