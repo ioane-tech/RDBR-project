@@ -22,33 +22,7 @@
     margin-left: 89px;
   }
 
-  @media (max-width:970px){
-    .header_div{
-      width: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
 
-    .home_header{
-      margin-left: auto;
-    }
-    .categories_container{
-      width: 90%;
-    }
-  }
-  @media(max-width:580px){
-    .home_header_img{
-      position: absolute;
-      display: none;  
-    }
-    .header_div{
-      margin-top: 200px;
-    }
-    .each_blog_container{
-      width: 50px;
-    }
-  }
 
   /*******categories******/
   .categories_container{
@@ -113,8 +87,10 @@
   }
   .login_popup{
     position: fixed;
-    top: 200px ;
-    left: 33%;
+    top:50% ;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
     width: 480px;
   
   
@@ -342,5 +318,64 @@
   }
   .each_blog_container{
     width: 270px;
+  }
+}
+
+
+
+
+@media (max-width:970px){
+  .header_div{
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home_header{
+    margin-left: auto;
+  }
+  .categories_container{
+    width: 90%;
+  }
+}
+@media(max-width:580px){
+  .home_header_img{
+    position: absolute;
+    display: none;  
+  }
+  .header_div{
+    margin-top: 200px;
+  }
+}
+
+@media(max-width:500px){
+  .login_popup{
+    width: 310px;
+  }
+  .login_input{
+    width: 270px;
+  }
+  .login_error{
+    width: 270px;
+    margin-top:40px ;
+  }
+
+  .login_submit{
+    width: 270px;
+  }
+  .succsess_img{
+    margin-left: 140px;
+  }
+  .authorized_text{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+  
+    width: 325px;
+    height: 28px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

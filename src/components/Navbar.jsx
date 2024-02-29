@@ -39,7 +39,9 @@ function Navbar() {
           {
             addBlogsPage===false?
               logedIn===false?
-              <button className='common_button' onClick={loginHandler}>შესვლა</button>
+              <div className='navbar_buttons_div'>
+                <button className='common_button' onClick={loginHandler}>შესვლა</button>
+              </div>
               :
               <>
                 <div className='navbar_buttons_div'>
